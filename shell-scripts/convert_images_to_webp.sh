@@ -15,19 +15,21 @@ for ext in "${extensions[@]}"; do
     base="${file%.*}"
     output="${base}.webp"
 
-    # Convert depending on format
+    # Lowercase extension (macOS Bash 3.2 safe)
+    ext_lc=$(echo "$ext" | tr '[:upper:]' '[:lower:]')
+
     if [[ ! -f "$output" ]]; then
       echo "Converting: $file → $output"
 
-      if [[ "${ext,,}" == "heic" ]]; then
-        # Convert HEIC to WebP via ImageMagick
-        convert "$file" "$output"
+      if [[ "$ext_lc" == "heic" ]]; then
+        # Use ImageMagick for HEIC files
+        magick "$file" "$output"
       else
-        # Convert using cwebp
+        # Use cwebp for everything else
         cwebp -quiet "$file" -o "$output"
       fi
 
-      # If conversion succeeded, move original
+      # If conversion succeeded, move the original file
       if [[ -f "$output" ]]; then
         echo "Moving original to _original/"
         mv "$file" "_original/"

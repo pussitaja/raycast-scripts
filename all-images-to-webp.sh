@@ -16,4 +16,4 @@
 DIR=$(osascript -e 'tell application "Finder" to set thePath to POSIX path of (insertion location as alias)')
 
 # Call your script with that directory
-./convert_images_to_webp.sh "$DIR"
+./shell-scripts/convert_images_to_webp.sh "$DIR"

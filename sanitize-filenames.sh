@@ -16,4 +16,4 @@
 DIR=$(osascript -e 'tell application "Finder" to set thePath to POSIX path of (insertion location as alias)')
 
 # Run the real sanitization script
-./sanitize_filenames.sh "$DIR"
+./shell-scripts/sanitize_filenames.sh "$DIR"
